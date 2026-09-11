@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+
+# Test and analysis artifacts
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Deepthink working memory
+.deepthink/
+
+# OS metadata
+.DS_Store
+Thumbs.db
