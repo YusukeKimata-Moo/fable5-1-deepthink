@@ -11,7 +11,7 @@ The core mechanism: externalize durable decision state into a **bounded scratchp
 - **Overwrite in place**, never append a history. Dead hypotheses shrink to one line under KILLED with the reason; do not keep their full reasoning.
 - Telegraphic bullets and `path:line` pointers only. No prose, no code blocks (point to code, don't paste it).
 - Update the file after each significant finding; re-read it before each major decision and immediately after any surprising result (cheap: it is ≤60 lines). Preserve the exact goal, user constraints, decisions, failed approaches and reasons, current state, and next action so context compaction cannot silently change the task.
-- Delete the file when the problem is solved. It must never appear verbatim in the final answer.
+- When solved, delete only the scratchpad created for this task and only if cleanup is authorized by the host/user rules; otherwise retain a compact completion state. Never delete a pre-existing scratchpad or include it verbatim in the final answer.
 
 ## Template
 
@@ -47,7 +47,7 @@ The core mechanism: externalize durable decision state into a **bounded scratchp
 3. **Discriminate cheaply** — order checks by (information gained ÷ token+time cost). Prefer checks that can kill multiple hypotheses at once. Run one check, update the table, re-rank. Loop.
 4. **Converge** — a hypothesis is confirmed only when (a) a discriminating check passed AND (b) no open hypothesis explains the evidence equally well. Confirmation by elimination alone is weak — say so in the final confidence.
 5. **Red-team pass** (see checklist below) — attack the confirmed result once, thoroughly. If a finding survives, loop back to step 3. Max 2 red-team passes total; after the second, ship with the residual risk stated.
-6. **Deliver** — conclusion first; evidence as pointers; confidence + what would change it; residual risks from RISKS section. Then delete the scratchpad.
+6. **Deliver** — conclusion first; evidence as pointers; confidence + what would change it; residual risks from RISKS section. Apply the scratchpad cleanup rule above.
 
 ## Red-team checklist (run once, top to bottom, note only hits)
 
@@ -60,7 +60,7 @@ The core mechanism: externalize durable decision state into a **bounded scratchp
 
 ## Stop criteria (prevents token spirals)
 
-Stop investigating and ship the best current answer, with limits stated, when ANY of:
+Stop the current investigation loop and report its limits when ANY of the following apply. These bounds do not waive required validation or make incomplete authorized work complete; continue independently actionable work, or identify the specific blocker.
 
 - Two consecutive checks produced no change to HYPOTHESES status or NEXT.
 - Both red-team passes are spent.
